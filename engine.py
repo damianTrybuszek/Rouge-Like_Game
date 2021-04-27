@@ -24,16 +24,17 @@ def create_board(width, height):
 
 def put_player_on_board(board, player):
     x = 0
+    player = main.PLAYER_ICON
     for row in board:
         y = 0
         for cell in row:
-            if cell == player['player_icon']:
+            if cell == player:
                 board[x][y] = ' '
             y += 1
         x += 1
 
-    height = player['position_y']
-    width = player['position_x']
-    board[height][width] = player['player_icon']
+    height = main.PLAYER_START_X
+    width = main.PLAYER_START_Y
+    board[height][width] = player
 
     return board
