@@ -1,5 +1,7 @@
 import main
 import msvcrt
+import PySimpleGUI as sg
+import util
 
 def create_board(width, height):
 
@@ -20,53 +22,37 @@ def create_board(width, height):
 
     return board
 
-def print_board(board):
-    for element in board:
-        print("".join(element))
+# def print_board(board):
+#     for element in board:
+#         print("".join(element))
 
+# def get_move():
+#     move = msvcrt.getch().decode('ASCII')
+#     return move
 
-def get_move():
-    move = msvcrt.getch().decode('ASCII')
-    return move
+def put_player_on_board(board, player, move):
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if board[i][j] == player:
+                    height = i
+                    width = j
+                    break
 
-def put_player_on_board(board, player):
-    height = 3
-    width = 3
-    board[height][width] = player
-    while True:
-        print_board(board)
-        move = get_move()
         if move.lower() == "w":
             board[height][width] = " "
-            board[height-1][width] = player
             height -=1
+            board[height][width] = player
         elif move.lower() == "a":
             board[height][width] = " "
-            board[height][width-1] = player
             width -= 1
+            board[height][width] = player
         elif move.lower() == "s":
             board[height][width] = " "
-            board[height+1][width] = player
             height += 1
+            board[height][width] = player
         elif move.lower() == "d":
             board[height][width] = " "
-            board[height][width+1] = player
             width += 1
-        
-        
+            board[height][width] = player
 
 
-
-        
-
-
-
-
-        
-
-
-    return board
-
-put_player_on_board(create_board(30, 10), "@")
-
-# print(get_move())
