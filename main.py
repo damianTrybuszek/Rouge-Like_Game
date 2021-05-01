@@ -9,6 +9,8 @@ PLAYER_START_Y = 3
 BOARD_WIDTH = 20
 BOARD_HEIGHT = 10
 
+GATE_ICON = "+"
+
 
 def create_player():
     return PLAYER_ICON
@@ -16,8 +18,8 @@ def create_player():
 
 def main():
     player = create_player()
-    height = 3
-    width = 3
+    height = PLAYER_START_Y
+    width = PLAYER_START_X
     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
     board[height][width] = player
     is_running = True
@@ -31,7 +33,6 @@ def main():
         else:
             pass
         engine.put_player_on_board(board, player, key)
-        # ui.display_board(board)
 
 
 if __name__ == '__main__':
