@@ -6,15 +6,14 @@ PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
 
-BOARD_WIDTH = 30
-BOARD_HEIGHT = 20
+BOARD_WIDTH = 20
+BOARD_HEIGHT = 10
 
 
 def create_player():
     '''
     Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
     Fell free to extend this dictionary!
-
     Returns:
     dictionary
     '''
@@ -41,4 +40,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
