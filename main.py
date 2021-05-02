@@ -10,6 +10,8 @@ BOARD_WIDTH = 20
 BOARD_HEIGHT = 10
 
 GATE_ICON = "+"
+GATE_TO_UPPER_LEVEL = "U"
+GATE_TO_LOWER_LEVEL = "L"
 
 
 def create_player():
@@ -20,7 +22,7 @@ def main():
     player = create_player()
     height = PLAYER_START_Y
     width = PLAYER_START_X
-    board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
+    board = engine.create_board_level_1(BOARD_WIDTH, BOARD_HEIGHT)
     board[height][width] = player
     is_running = True
     
