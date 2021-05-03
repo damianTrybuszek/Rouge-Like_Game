@@ -23,7 +23,7 @@ board_level_1 = engine.create_board_level_1(BOARD_WIDTH, BOARD_HEIGHT)
 board_level_2 = engine.create_board_level_2(BOARD_WIDTH, BOARD_HEIGHT)
 board_level_3 = engine.create_board_level_3(BOARD_WIDTH, BOARD_HEIGHT)
 
-def get_active_board(active_board, level_1 = board_level_1, level_2 = board_level_1,level_3 = board_level_3, param):
+def get_active_board(active_board, param, level_1 = board_level_1, level_2 = board_level_1,level_3 = board_level_3):
     if active_board == level_1:
         if param == "upper":
             return level_2
@@ -35,8 +35,6 @@ def get_active_board(active_board, level_1 = board_level_1, level_2 = board_leve
     elif active_board == level_3:
         if param == "lower":
             return level_1
-
-
 
 def main():
     player = create_player()
