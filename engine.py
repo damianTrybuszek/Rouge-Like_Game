@@ -335,19 +335,19 @@ def put_player_on_board(board, player, move):
                 gate_coords.append((i,j))
 
 
-    if move.lower() == "w" and board[height-1][width] not in [main.WALL_ICON, main.GATE_ICON]:
+    if move.lower() == "w" and board[height-1][width] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
         board[height][width] = " "
         height -=1
         board[height][width] = player
-    elif move.lower() == "a" and board[height][width-1] not in [main.WALL_ICON, main.GATE_ICON]:
+    elif move.lower() == "a" and board[height][width-1] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
         board[height][width] = " "
         width -= 1
         board[height][width] = player
-    elif move.lower() == "s" and board[height+1][width] not in [main.WALL_ICON, main.GATE_ICON]:
+    elif move.lower() == "s" and board[height+1][width] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
         board[height][width] = " "
         height += 1
         board[height][width] = player
-    elif move.lower() == "d" and board[height][width+1] not in [main.WALL_ICON, main.GATE_ICON]:
+    elif move.lower() == "d" and board[height][width+1] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
         board[height][width] = " "
         width += 1
         board[height][width] = player
