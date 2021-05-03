@@ -1,4 +1,5 @@
 import main
+import random
 
 
 def create_board_level_1(width, height):
@@ -477,3 +478,39 @@ def put_player_on_board(board, player, move):
         
         board[height][width] = player
     return False
+
+def put_enemy_on_board(board, enemy):
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] == enemy:
+                height = i
+                width = j
+                break
+    
+    gate_coords = []
+
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] == main.GATE_ICON:
+                gate_coords.append((i,j))
+
+    move = random.choice(["w","a","s","d"])
+
+
+    if move.lower() == "w" and board[height-1][width] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        board[height][width] = " "
+        height -=1
+        board[height][width] = enemy
+    elif move.lower() == "a" and board[height][width-1] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        board[height][width] = " "
+        width -= 1
+        board[height][width] = enemy
+    elif move.lower() == "s" and board[height+1][width] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        board[height][width] = " "
+        height += 1
+        board[height][width] = enemy
+    elif move.lower() == "d" and board[height][width+1] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        board[height][width] = " "
+        width += 1
+        board[height][width] = enemy
+
