@@ -128,26 +128,26 @@ def create_board_level_2(width, height):
                 board[i][j]=main.WALL_ICON
 
     for i in range(height+2):
-        for j in range(width-4):
-            if i == 5 and j == width- 4 -1:
-                board[i][j+30]=main.GATE_ICON
+        for j in range(width+4):
+            if i == 5 and j == width+ 4 -1:
+                board[i][j+26]=main.GATE_ICON
             elif i == 4 and j == 0:
-                board[i][j+30]=main.GATE_ICON
-            elif j == 0 or j == width - 4 -1:
-                board[i][j+30]=main.WALL_ICON
+                board[i][j+26]=main.GATE_ICON
+            elif j == 0 or j == width + 4 -1:
+                board[i][j+26]=main.WALL_ICON
             elif i == 0 or i == height +2 - 1:
-                board[i][j+30]=main.WALL_ICON
+                board[i][j+26]=main.WALL_ICON
 
-    for i in range(height-2):
+    for i in range(height+5):
         for j in range(width+2):
             if i == 2 and j == width+2 -1:
-                board[i+18][j+34]=main.GATE_ICON
+                board[i+12][j+34]=main.GATE_ICON
             elif i == 3 and j == 0:
-                board[i+18][j+34]=main.GATE_ICON
+                board[i+12][j+34]=main.GATE_ICON
             elif j == 0 or j == width +2 -1:
-                board[i+18][j+34]=main.WALL_ICON
-            elif i == 0 or i == height - 2 - 1:
-                board[i+18][j+34]=main.WALL_ICON
+                board[i+12][j+34]=main.WALL_ICON
+            elif i == 0 or i == height +5 - 1:
+                board[i+12][j+34]=main.WALL_ICON
 
     for i in range(height):
         for j in range(width-4):
