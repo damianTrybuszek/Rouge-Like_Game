@@ -65,9 +65,6 @@ def create_board_level_1(width, height):
     distance_5 = gate_coords[4][1] - gate_coords[5][1]
     distance_6 = gate_coords[5][0] - gate_coords[4][0]
 
-
-
-
     for i in range(distance_1-1):
         if i <= distance_1//2:
             height = gate_coords[0][0] 
@@ -123,8 +120,6 @@ def put_player_on_board(board, player, move):
         for j in range(len(board[i])):
             if board[i][j] == main.GATE_ICON:
                 gate_coords.append((i,j))
-
-                
 
     if move.lower() == "w" and board[height-1][width] not in [main.WALL_ICON, main.GATE_ICON]:
         board[height][width] = " "
@@ -236,6 +231,3 @@ def put_player_on_board(board, player, move):
             width = gate_coords[4][1] +1
         
         board[height][width] = player
-
-    
-    
