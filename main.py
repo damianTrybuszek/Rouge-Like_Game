@@ -18,20 +18,18 @@ WALL_ICON = chr(9609)
 def create_player():
     return PLAYER_ICON
 
-def get_active_board(active_board, param, level_1, level_2 ,level_3):
-    if active_board == level_1:
+def get_active_board(current_level, param, level_1, level_2 ,level_3):
+    if current_level == "Level 1":
         if param == "upper":
-            return level_2
-    elif active_board == level_2:
+            return level_2, "Level 2"
+    elif current_level == "Level 2":
         if param == "upper":
-            return level_3
+            return level_3, "Level 3"
         elif param == "lower":
-            return level_1
-    elif active_board == level_3:
+            return level_1, "Level 1"
+    elif current_level == "Level 3":
         if param == "lower":
-            return level_1
-    else: 
-        return active_board
+            return level_2, "Level 2"
 
 def main():
     board_level_1 = engine.create_board_level_1(BOARD_WIDTH, BOARD_HEIGHT)
@@ -45,11 +43,12 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3):
     height = PLAYER_START_Y
     width = PLAYER_START_X
     board[height][width] = player
+    current_level = "Level 1"
     is_running = True
     
     while is_running:
         util.clear_screen()
-        ui.display_board(board)
+        ui.display_board(board, current_level)
         key = util.key_pressed()
         if key == 'q':
             is_running = False
@@ -59,7 +58,7 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3):
             pass
         parameter = engine.put_player_on_board(board, player, key)
         if parameter:
-            board = get_active_board(board, parameter, board_level_1, board_level_2, board_level_3)
+            board, current_level = get_active_board(current_level, parameter, board_level_1, board_level_2, board_level_3)
             height = PLAYER_START_Y
             width = PLAYER_START_X
             board[height][width] = player

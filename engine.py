@@ -120,6 +120,8 @@ def create_board_level_2(width, height):
         for j in range(width):
             if i == 3 and j == width-1:
                 board[i][j]=main.GATE_ICON
+            elif i == height//2 and j == (width)//2:
+                board[i][j]=main.GATE_TO_LOWER_LEVEL
             elif j == 0 or j == width -1:
                 board[i][j]=main.WALL_ICON
             elif i == 0 or i == height -1:
@@ -225,6 +227,8 @@ def create_board_level_3(width, height):
         for j in range(width):
             if i == 3 and j == width-1:
                 board[i][j]=main.GATE_ICON
+            elif i == (height)//2 and j == (width)//2:
+                board[i][j]=main.GATE_TO_LOWER_LEVEL
             elif j == 0 or j == width -1:
                 board[i][j]=main.WALL_ICON
             elif i == 0 or i == height -1:
@@ -256,8 +260,6 @@ def create_board_level_3(width, height):
         for j in range(width-4):
             if i == 4 and j == width- 4 -1:
                 board[i+20][j+10]=main.GATE_ICON
-            elif i == height/2 and j == (width- 4)/2:
-                board[i+20][j+10]=main.GATE_TO_UPPER_LEVEL
             elif j == 0 or j == width - 4 -1:
                 board[i+20][j+10]=main.WALL_ICON
             elif i == 0 or i == height - 1:
