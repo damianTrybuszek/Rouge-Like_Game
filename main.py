@@ -15,15 +15,10 @@ GATE_TO_LOWER_LEVEL = "L"
 PATH_ICON = chr(9641)
 WALL_ICON = chr(9609)
 
-
 def create_player():
     return PLAYER_ICON
 
-board_level_1 = engine.create_board_level_1(BOARD_WIDTH, BOARD_HEIGHT)
-board_level_2 = engine.create_board_level_2(BOARD_WIDTH, BOARD_HEIGHT)
-board_level_3 = engine.create_board_level_3(BOARD_WIDTH, BOARD_HEIGHT)
-
-def get_active_board(active_board, param, level_1 = board_level_1, level_2 = board_level_1,level_3 = board_level_3):
+def get_active_board(active_board, param, level_1, level_2 ,level_3):
     if active_board == level_1:
         if param == "upper":
             return level_2
@@ -35,9 +30,18 @@ def get_active_board(active_board, param, level_1 = board_level_1, level_2 = boa
     elif active_board == level_3:
         if param == "lower":
             return level_1
+    else: 
+        return active_board
 
 def main():
+    board_level_1 = engine.create_board_level_1(BOARD_WIDTH, BOARD_HEIGHT)
+    board_level_2 = engine.create_board_level_2(BOARD_WIDTH, BOARD_HEIGHT)
+    board_level_3 = engine.create_board_level_3(BOARD_WIDTH, BOARD_HEIGHT)
+    board = board_level_1
     player = create_player()
+    gameplay(board, player, board_level_1, board_level_2, board_level_3)
+
+def gameplay(board, player, board_level_1, board_level_2, board_level_3):
     height = PLAYER_START_Y
     width = PLAYER_START_X
     board[height][width] = player
@@ -49,10 +53,16 @@ def main():
         key = util.key_pressed()
         if key == 'q':
             is_running = False
+        if key == "i":
+            pass
         else:
             pass
-        engine.put_player_on_board(board, player, key)
-
+        parameter = engine.put_player_on_board(board, player, key)
+        if parameter:
+            board = get_active_board(board, parameter, board_level_1, board_level_2, board_level_3)
+            height = PLAYER_START_Y
+            width = PLAYER_START_X
+            board[height][width] = player
 
 if __name__ == '__main__':
     main()
