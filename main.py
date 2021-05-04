@@ -1,6 +1,7 @@
 import util
 import engine
 import ui
+import dictionaries
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 5
@@ -14,6 +15,11 @@ GATE_TO_UPPER_LEVEL = "U"
 GATE_TO_LOWER_LEVEL = "L"
 PATH_ICON = chr(9641)
 WALL_ICON = chr(9609)
+
+MONSTER_ICON = ' M'
+MONSTER_START_X = 7
+MONSTER_START_Y = 7
+MONSTER_HP = 3
 
 def create_player():
     return PLAYER_ICON
@@ -43,6 +49,9 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3):
     height = PLAYER_START_Y
     width = PLAYER_START_X
     board[height][width] = player
+    item = engine.put_item_on_board(board, dictionaries.items)
+    board = item
+    engine.item_vs_player(dictionaries.inventory, dictionaries.items, dictionaries.player, dictionaries.items)
     current_level = "Level 1"
     is_running = True
     
@@ -53,7 +62,8 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3):
         if key == 'q':
             is_running = False
         if key == "i":
-            pass
+            ui.print_message('This is your inventory content: ')
+            ui.print_table(dictionaries.inventory)
         else:
             pass
         parameter = engine.put_player_on_board(board, player, key)

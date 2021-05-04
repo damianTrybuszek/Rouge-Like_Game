@@ -1,5 +1,7 @@
 import main
 import random
+import ui
+import math
 
 
 def create_board_level_1(width, height):
@@ -514,3 +516,50 @@ def put_enemy_on_board(board, enemy):
         width += 1
         board[height][width] = enemy
 
+
+def put_item_on_board(board, items):
+    
+    for item_key in items:
+        if items[item_key]:
+            board[items[item_key]['position_y']][items[item_key]['position_x']] = items[item_key]['icon']
+        else:
+            pass
+
+    return board
+
+def add_to_inventory(inventory, item_key):
+    """Add to the inventory dictionary a list of items"""
+
+
+    if item_key == 'sowrd':
+        pass
+
+    elif item_key in inventory:
+        inventory[item_key] += 1
+    else:
+        inventory[item_key] = 1
+
+def item_vs_player(inventory, item, player, items):
+    
+    item_to_delete = ''
+
+    for item_key in item:
+        if item[item_key]['position_x'] == player['position_x'] and item[item_key]['position_y'] == player['position_y'] and items[item_key]['board']:
+
+            add_to_inventory(inventory, item_key)
+            item_to_delete = item_key
+            item[item_key]['number'] -= 1
+            
+
+            if item_key == 'soword':
+                ui.print_message('\n' + ' +2 Life point! ')
+                player['atack'] += 2 
+            else:
+                ui.print_message('\n' + item_key + ' has been added to your inventory!')
+                
+
+    if item_to_delete == '':
+        pass
+
+    elif item[item_to_delete]['number'] == 0:
+        item[item_to_delete]['board'] = -1
