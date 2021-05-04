@@ -144,24 +144,24 @@ def create_board_level_2(width, height):
     for i in range(height+5):
         for j in range(width+2):
             if i == 2 and j == width+2 -1:
-                board[i+12][j+34]=main.GATE_ICON
-            elif i == 3 and j == 0:
-                board[i+12][j+34]=main.GATE_ICON
+                board[i+12][j+6]=main.GATE_ICON
+            elif i == 6 and j == 0:
+                board[i+12][j+6]=main.GATE_ICON
             elif j == 0 or j == width +2 -1:
-                board[i+12][j+34]=main.WALL_ICON
+                board[i+12][j+6]=main.WALL_ICON
             elif i == 0 or i == height +5 - 1:
-                board[i+12][j+34]=main.WALL_ICON
+                board[i+12][j+6]=main.WALL_ICON
 
     for i in range(height):
         for j in range(width-4):
             if i == 4 and j == width- 4 -1:
-                board[i+20][j+10]=main.GATE_ICON
+                board[i+15][j+30]=main.GATE_ICON
             elif i == height/2 and j == (width- 4)/2:
-                board[i+20][j+10]=main.GATE_TO_UPPER_LEVEL
+                board[i+15][j+30]=main.GATE_TO_UPPER_LEVEL
             elif j == 0 or j == width - 4 -1:
-                board[i+20][j+10]=main.WALL_ICON
+                board[i+15][j+30]=main.WALL_ICON
             elif i == 0 or i == height - 1:
-                board[i+20][j+10]=main.WALL_ICON
+                board[i+15][j+30]=main.WALL_ICON
 
     gate_coords = []
 
@@ -171,11 +171,14 @@ def create_board_level_2(width, height):
                 gate_coords.append((i,j))
 
     distance_1 = gate_coords[1][1] - gate_coords[0][1]
-    distance_2 = gate_coords[3][1] - gate_coords[2][1]
+    distance_2 = 3 #-gate_coords[3][1] + gate_coords[2][1]
     distance_3 = gate_coords[3][0] - gate_coords[2][0]
-    distance_4 = distance_2 + 3 -  (gate_coords[3][1] - gate_coords[2][1])
-    distance_5 = gate_coords[4][1] - gate_coords[5][1]
-    distance_6 = gate_coords[5][0] - gate_coords[4][0]
+    distance_4 = distance_2 + distance_2 -  (gate_coords[3][1] - gate_coords[2][1])
+    distance_5 = 3
+    distance_6 = len(board) - gate_coords[4][0]-1
+    distance_7 = len(board) - gate_coords[5][0]-1
+    distance_8 = gate_coords[5][1] - gate_coords[4][1] +1
+    
 
     for i in range(distance_1-1):
         if i <= distance_1//2:
@@ -202,19 +205,27 @@ def create_board_level_2(width, height):
         board[height][width+i] = main.PATH_ICON
 
     for i in range(distance_5):
-        if i <= distance_5//2:
-            height = gate_coords[5][0] 
-            width = gate_coords[5][1] +1 
-            board[height][width+i] = main.PATH_ICON
-        if i == distance_5 // 2:
+        if i <= distance_5-1:
+            height = gate_coords[4][0] 
+            width = gate_coords[4][1] -1
+            board[height][width-i] = main.PATH_ICON
+        if i == distance_5 -1:
             for j in range(distance_6):
-                board[height-j][width + i] = main.PATH_ICON
+                board[height+j][width - i] = main.PATH_ICON
     
-    for i in range(distance_5-1):
-        if i >= distance_5//2:
-            height = gate_coords[5][0] - distance_6 
-            width = gate_coords[5][1] +1
-            board[height][width+i] = main.PATH_ICON
+    for i in range(distance_8 + 2*distance_5):
+        height = gate_coords[4][0] + distance_6 
+        width = gate_coords[4][1] - distance_5
+        board[height][width+i] = main.PATH_ICON
+        if i == distance_8 + 2*distance_5-1:
+            for j in range(distance_7):
+                board[height-j][width + i] = main.PATH_ICON
+
+    for i in range(distance_5):
+        height = gate_coords[5][0] 
+        width = gate_coords[5][1] +1 
+        board[height][width+i] = main.PATH_ICON
+    
 
     return board
 
