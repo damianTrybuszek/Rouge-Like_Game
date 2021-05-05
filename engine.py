@@ -2,6 +2,7 @@ import main
 import random
 import ui
 import math
+import dictionaries
 
 
 def create_board_level_1(width, height):
@@ -16,8 +17,6 @@ def create_board_level_1(width, height):
         for j in range(width):
             if i == 3 and j == width-1:
                 board[i][j]=main.GATE_ICON
-            # if i == main.PLAYER_START_Y and j == main.PLAYER_START_X:
-            #     board[i][j]=main.PLAYER_ICON
             elif j == 0 or j == width -1:
                 board[i][j]=main.WALL_ICON
             elif i == 0 or i == height -1:
@@ -37,13 +36,15 @@ def create_board_level_1(width, height):
     for i in range(height-2):
         for j in range(width+2):
             if i == 2 and j == width+2 -1:
-                board[i+18][j+34]=main.GATE_ICON
+                board[i+17][j+34]=main.GATE_ICON
             elif i == 3 and j == 0:
-                board[i+18][j+34]=main.GATE_ICON
+                board[i+17][j+34]=main.GATE_ICON
             elif j == 0 or j == width +2 -1:
-                board[i+18][j+34]=main.WALL_ICON
+                board[i+17][j+34]=main.WALL_ICON
             elif i == 0 or i == height - 2 - 1:
-                board[i+18][j+34]=main.WALL_ICON
+                board[i+17][j+34]=main.WALL_ICON
+            elif (i == 5 and j == 4) or (i == 4 and j == 5):
+                board[i+17][j+34] = dictionaries.enemy["monster"]["icon"]
 
     for i in range(height):
         for j in range(width-4):
@@ -155,13 +156,13 @@ def create_board_level_2(width, height):
     for i in range(height):
         for j in range(width-4):
             if i == 4 and j == width- 4 -1:
-                board[i+15][j+30]=main.GATE_ICON
+                board[i+18][j+30]=main.GATE_ICON
             elif i == height/2 and j == (width- 4)/2:
-                board[i+15][j+30]=main.GATE_TO_UPPER_LEVEL
+                board[i+18][j+30]=main.GATE_TO_UPPER_LEVEL
             elif j == 0 or j == width - 4 -1:
-                board[i+15][j+30]=main.WALL_ICON
+                board[i+18][j+30]=main.WALL_ICON
             elif i == 0 or i == height - 1:
-                board[i+15][j+30]=main.WALL_ICON
+                board[i+18][j+30]=main.WALL_ICON
 
     gate_coords = []
 
@@ -171,7 +172,7 @@ def create_board_level_2(width, height):
                 gate_coords.append((i,j))
 
     distance_1 = gate_coords[1][1] - gate_coords[0][1]
-    distance_2 = 3 #-gate_coords[3][1] + gate_coords[2][1]
+    distance_2 = 3 
     distance_3 = gate_coords[3][0] - gate_coords[2][0]
     distance_4 = distance_2 + distance_2 -  (gate_coords[3][1] - gate_coords[2][1])
     distance_5 = 3
@@ -237,47 +238,47 @@ def create_board_level_3(width, height):
             temp_table.append(" ")
         board.append(temp_table)
 
-    for i in range(height):
-        for j in range(width):
-            if i == 3 and j == width-1:
+    for i in range(height+2):
+        for j in range(width+2):
+            if i == 3 and j == width +2 -1:
                 board[i][j]=main.GATE_ICON
-            elif i == (height)//2 and j == (width)//2:
+            elif i == (height+2)//2 and j == (width+2)//2:
                 board[i][j]=main.GATE_TO_LOWER_LEVEL
-            elif j == 0 or j == width -1:
+            elif j == 0 or j == width + 2 - 1:
                 board[i][j]=main.WALL_ICON
-            elif i == 0 or i == height -1:
+            elif i == 0 or i == height + 2 - 1:
                 board[i][j]=main.WALL_ICON
 
-    for i in range(height+2):
+    for i in range(height+4):
         for j in range(width-4):
             if i == 5 and j == width- 4 -1:
-                board[i][j+30]=main.GATE_ICON
-            elif i == 4 and j == 0:
-                board[i][j+30]=main.GATE_ICON
+                board[i+2][j+30]=main.GATE_ICON
+            elif i == 2 and j == 0:
+                board[i+2][j+30]=main.GATE_ICON
             elif j == 0 or j == width - 4 -1:
-                board[i][j+30]=main.WALL_ICON
-            elif i == 0 or i == height +2 - 1:
-                board[i][j+30]=main.WALL_ICON
-
-    for i in range(height-2):
-        for j in range(width+2):
-            if i == 2 and j == width+2 -1:
-                board[i+18][j+34]=main.GATE_ICON
-            elif i == 3 and j == 0:
-                board[i+18][j+34]=main.GATE_ICON
-            elif j == 0 or j == width +2 -1:
-                board[i+18][j+34]=main.WALL_ICON
-            elif i == 0 or i == height - 2 - 1:
-                board[i+18][j+34]=main.WALL_ICON
+                board[i+2][j+30]=main.WALL_ICON
+            elif i == 0 or i == height +4 - 1:
+                board[i+2][j+30]=main.WALL_ICON
 
     for i in range(height):
-        for j in range(width-4):
-            if i == 4 and j == width- 4 -1:
-                board[i+20][j+10]=main.GATE_ICON
-            elif j == 0 or j == width - 4 -1:
-                board[i+20][j+10]=main.WALL_ICON
+        for j in range(width+2):
+            if i == 2 and j == width+2 -1:
+                board[i+17][j+32]=main.GATE_ICON
+            elif i == 3 and j == 0:
+                board[i+17][j+32]=main.GATE_ICON
+            elif j == 0 or j == width +2 -1:
+                board[i+17][j+32]=main.WALL_ICON
             elif i == 0 or i == height - 1:
-                board[i+20][j+10]=main.WALL_ICON
+                board[i+17][j+32]=main.WALL_ICON
+
+    for i in range(height+2):
+        for j in range(width+6):
+            if i == 4 and j == width + 6 -1:
+                board[i+18][j+2]=main.GATE_ICON
+            elif j == 0 or j == width + 6 -1:
+                board[i+18][j+2]=main.WALL_ICON
+            elif i == 0 or i == height + 2 - 1:
+                board[i+18][j+2]=main.WALL_ICON
 
     gate_coords = []
 
@@ -492,14 +493,16 @@ def put_player_on_board(board, player, move):
         board[height][width] = player
     return False
 
-def put_enemy_on_board(board, enemy):
+def put_enemy_on_board(board):
+
+    enemy_coords = []
+
+    enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["boss"]["icon"]]
+
     for i in range(len(board)):
         for j in range(len(board[i])):
-            if board[i][j] == enemy:
-                height = i
-                width = j
-                break
-    
+            if board[i][j] in enemy_list:
+                enemy_coords.append((i,j))
     gate_coords = []
 
     for i in range(len(board)):
@@ -507,25 +510,35 @@ def put_enemy_on_board(board, enemy):
             if board[i][j] == main.GATE_ICON:
                 gate_coords.append((i,j))
 
-    move = random.choice(["w","a","s","d"])
+    
 
+    for element in enemy_coords:
+        height = element[0]
+        width = element[1]
 
-    if move.lower() == "w" and board[height-1][width] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
-        board[height][width] = " "
-        height -=1
-        board[height][width] = enemy
-    elif move.lower() == "a" and board[height][width-1] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
-        board[height][width] = " "
-        width -= 1
-        board[height][width] = enemy
-    elif move.lower() == "s" and board[height+1][width] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
-        board[height][width] = " "
-        height += 1
-        board[height][width] = enemy
-    elif move.lower() == "d" and board[height][width+1] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
-        board[height][width] = " "
-        width += 1
-        board[height][width] = enemy
+        if board[height][width] == dictionaries.enemy["monster"]["icon"]:
+            enemy = dictionaries.enemy["monster"]["icon"]
+        else:
+            enemy = dictionaries.enemy["boss"]["icon"]
+        
+        move = random.choice(["w","a","s","d"])
+
+        if move.lower() == "w" and board[height-1][width] not in [enemy_list[0], enemy_list[1], main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+            board[height][width] = " "
+            height -=1
+            board[height][width] = enemy
+        elif move.lower() == "a" and board[height][width-1] not in [enemy_list[0], enemy_list[1], main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+            board[height][width] = " "
+            width -= 1
+            board[height][width] = enemy
+        elif move.lower() == "s" and board[height+1][width] not in [enemy_list[0], enemy_list[1], main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+            board[height][width] = " "
+            height += 1
+            board[height][width] = enemy
+        elif move.lower() == "d" and board[height][width+1] not in [enemy_list[0], enemy_list[1], main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+            board[height][width] = " "
+            width += 1
+            board[height][width] = enemy
 
 
 def put_item_on_board(board, items):

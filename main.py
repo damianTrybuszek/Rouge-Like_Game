@@ -42,10 +42,11 @@ def main():
     board_level_2 = engine.create_board_level_2(BOARD_WIDTH, BOARD_HEIGHT)
     board_level_3 = engine.create_board_level_3(BOARD_WIDTH, BOARD_HEIGHT)
     board = board_level_1
-    player = create_player()
+    player = dictionaries.player["icon"]
     gameplay(board, player, board_level_1, board_level_2, board_level_3)
+    # enemy = dictionaries.enemy["monster"]
 
-def gameplay(board, player, board_level_1, board_level_2, board_level_3):
+def gameplay(board, player, board_level_1, board_level_2, board_level_3, ):
     height = PLAYER_START_Y
     width = PLAYER_START_X
     board[height][width] = player
@@ -67,6 +68,7 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3):
         else:
             pass
         parameter = engine.put_player_on_board(board, player, key)
+        engine.put_enemy_on_board(board)
         if parameter:
             board, current_level = get_active_board(current_level, parameter, board_level_1, board_level_2, board_level_3)
             height = PLAYER_START_Y
