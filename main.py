@@ -16,10 +16,13 @@ GATE_TO_LOWER_LEVEL = "L"
 PATH_ICON = chr(9641)
 WALL_ICON = chr(9609)
 
-MONSTER_ICON = ' M'
+MONSTER_ICON = 'M'
 MONSTER_START_X = 7
 MONSTER_START_Y = 7
 MONSTER_HP = 3
+
+enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["boss"]["icon"], dictionaries.enemy["ghost"]["icon"]]
+item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
 
 def create_player():
     return PLAYER_ICON
@@ -42,38 +45,42 @@ def main():
     board_level_2 = engine.create_board_level_2(BOARD_WIDTH, BOARD_HEIGHT)
     board_level_3 = engine.create_board_level_3(BOARD_WIDTH, BOARD_HEIGHT)
     board = board_level_1
-    player = dictionaries.player["icon"]
+    player = dictionaries.player
     gameplay(board, player, board_level_1, board_level_2, board_level_3)
     # enemy = dictionaries.enemy["monster"]
 
 def gameplay(board, player, board_level_1, board_level_2, board_level_3, ):
     height = PLAYER_START_Y
     width = PLAYER_START_X
-    board[height][width] = player
+    board[height][width] = player["icon"]
     item = engine.put_item_on_board(board, dictionaries.items)
     board = item
-    engine.item_vs_player(dictionaries.inventory, dictionaries.items, dictionaries.player, dictionaries.items)
+    inventory = dictionaries.inventory
     current_level = "Level 1"
     is_running = True
     
     while is_running:
         util.clear_screen()
-        ui.display_board(board, current_level)
+        ui.display_board(board, current_level, player)
         key = util.key_pressed()
         if key == 'q':
             is_running = False
         if key == "i":
-            ui.print_message('This is your inventory content: ')
-            ui.print_table(dictionaries.inventory)
-        else:
-            pass
-        parameter = engine.put_player_on_board(board, player, key)
-        engine.put_enemy_on_board(board)
-        if parameter:
-            board, current_level = get_active_board(current_level, parameter, board_level_1, board_level_2, board_level_3)
-            height = PLAYER_START_Y
-            width = PLAYER_START_X
-            board[height][width] = player
+            ui.print_message('This is your inventory content: \n')
+            ui.print_table(inventory)
+            input("Press enter to continue:\n")
+        else: 
+            parameter = engine.put_player_on_board(board, player, key)
+            print(parameter)
+            engine.put_enemy_on_board(board, player)
+            if parameter:
+                if parameter in item_list:
+                    engine.item_vs_player(inventory, dictionaries.items, player, parameter)
+                else:
+                    board, current_level = get_active_board(current_level, parameter, board_level_1, board_level_2, board_level_3)
+                    height = PLAYER_START_Y
+                    width = PLAYER_START_X
+                    board[height][width] = player["icon"]
 
 if __name__ == '__main__':
     main()

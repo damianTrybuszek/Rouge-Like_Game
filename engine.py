@@ -339,7 +339,7 @@ def create_board_level_3(width, height):
 def put_player_on_board(board, player, move):
     for i in range(len(board)):
         for j in range(len(board[i])):
-            if board[i][j] == player:
+            if board[i][j] == player["icon"]:
                 height = i
                 width = j
                 break
@@ -351,23 +351,51 @@ def put_player_on_board(board, player, move):
             if board[i][j] == main.GATE_ICON:
                 gate_coords.append((i,j))
 
-
-    if move.lower() == "w" and board[height-1][width] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+    
+    item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
+    
+    if move.lower() == "w" and board[height-1][width] in item_list:
         board[height][width] = " "
         height -=1
-        board[height][width] = player
-    elif move.lower() == "a" and board[height][width-1] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        item = board[height][width]
+        board[height][width] = player["icon"]
+        return item
+    elif move.lower() == "a" and board[height][width-1] in item_list:
         board[height][width] = " "
         width -= 1
-        board[height][width] = player
-    elif move.lower() == "s" and board[height+1][width] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        item = board[height][width]
+        board[height][width] = player["icon"]
+        return item
+    elif move.lower() == "s" and board[height+1][width] in item_list:
         board[height][width] = " "
         height += 1
-        board[height][width] = player
-    elif move.lower() == "d" and board[height][width+1] not in [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        item = board[height][width]
+        board[height][width] = player["icon"]
+        return item
+    elif move.lower() == "d" and board[height][width+1] in item_list:
         board[height][width] = " "
         width += 1
-        board[height][width] = player
+        item = board[height][width]
+        board[height][width] = player["icon"]
+        return item
+
+
+    if move.lower() == "w" and board[height-1][width] == " ":
+        board[height][width] = " "
+        height -=1
+        board[height][width] = player["icon"]
+    elif move.lower() == "a" and board[height][width-1] == " ":
+        board[height][width] = " "
+        width -= 1
+        board[height][width] = player["icon"]
+    elif move.lower() == "s" and board[height+1][width] == " ":
+        board[height][width] = " "
+        height += 1
+        board[height][width] = player["icon"]
+    elif move.lower() == "d" and board[height][width+1] == " ":
+        board[height][width] = " "
+        width += 1
+        board[height][width] = player["icon"]
 
     if move.lower() == "w" and board[height-1][width] in [main.GATE_TO_UPPER_LEVEL]:
         board[height][width] = " "
@@ -418,7 +446,7 @@ def put_player_on_board(board, player, move):
             height = gate_coords[4][0] + 1
             width = gate_coords[4][1]
         
-        board[height][width] = player
+        board[height][width] = player["icon"]
 
 
     elif move.lower() == "a" and board[height][width-1] == main.GATE_ICON:
@@ -443,7 +471,7 @@ def put_player_on_board(board, player, move):
             height = gate_coords[4][0] 
             width = gate_coords[4][1] - 1
         
-        board[height][width] = player
+        board[height][width] = player["icon"]
 
     elif move.lower() == "s" and board[height+1][width] == main.GATE_ICON:
         board[height][width] = " "
@@ -467,7 +495,7 @@ def put_player_on_board(board, player, move):
             height = gate_coords[4][0] - 1
             width = gate_coords[4][1]
         
-        board[height][width] = player
+        board[height][width] = player["icon"]
     elif move.lower() == "d" and board[height][width +1] == main.GATE_ICON:
         board[height][width] = " "
         width += 1
@@ -490,14 +518,15 @@ def put_player_on_board(board, player, move):
             height = gate_coords[4][0] 
             width = gate_coords[4][1] +1
         
-        board[height][width] = player
+        board[height][width] = player["icon"]
+        
     return False
 
-def put_enemy_on_board(board):
+def put_enemy_on_board(board, player):
 
     enemy_coords = []
 
-    enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["boss"]["icon"]]
+    enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["boss"]["icon"], dictionaries.enemy["ghost"]["icon"]]
 
     for i in range(len(board)):
         for j in range(len(board[i])):
@@ -510,7 +539,8 @@ def put_enemy_on_board(board):
             if board[i][j] == main.GATE_ICON:
                 gate_coords.append((i,j))
 
-    
+    collision_list = [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL, player["icon"], dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
+
 
     for element in enemy_coords:
         height = element[0]
@@ -518,24 +548,26 @@ def put_enemy_on_board(board):
 
         if board[height][width] == dictionaries.enemy["monster"]["icon"]:
             enemy = dictionaries.enemy["monster"]["icon"]
+        elif board[height][width] == dictionaries.enemy["ghost"]["icon"]:
+            enemy = dictionaries.enemy["ghost"]["icon"]
         else:
             enemy = dictionaries.enemy["boss"]["icon"]
         
         move = random.choice(["w","a","s","d"])
 
-        if move.lower() == "w" and board[height-1][width] not in [enemy_list[0], enemy_list[1], main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        if move.lower() == "w" and board[height-1][width] not in collision_list and board[height-1][width] not in enemy_list:
             board[height][width] = " "
             height -=1
             board[height][width] = enemy
-        elif move.lower() == "a" and board[height][width-1] not in [enemy_list[0], enemy_list[1], main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        elif move.lower() == "a" and board[height][width-1] not in collision_list and board[height][width-1] not in enemy_list:
             board[height][width] = " "
             width -= 1
             board[height][width] = enemy
-        elif move.lower() == "s" and board[height+1][width] not in [enemy_list[0], enemy_list[1], main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        elif move.lower() == "s" and board[height+1][width] not in collision_list and board[height+1][width] not in enemy_list:
             board[height][width] = " "
             height += 1
             board[height][width] = enemy
-        elif move.lower() == "d" and board[height][width+1] not in [enemy_list[0], enemy_list[1], main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL]:
+        elif move.lower() == "d" and board[height][width+1] not in collision_list and  board[height][width+1] not in enemy_list:
             board[height][width] = " "
             width += 1
             board[height][width] = enemy
@@ -551,39 +583,23 @@ def put_item_on_board(board, items):
 
     return board
 
-def add_to_inventory(inventory, item_key):
+def add_to_inventory(inventory, item, properties):
     """Add to the inventory dictionary a list of items"""
+    inventory[item] = properties
 
+# def item_vs_player(inventory, items, player):    
+#     for item, properties in items.items():
+#         if properties['position_x'] == player['position_x'] and properties['position_y'] == player['position_y']:
+#             add_to_inventory(inventory, item, properties)
+#             add_stats_to_player(player, properties)
 
-    if item_key == 'sowrd':
-        pass
+def item_vs_player(inventory, items, player, parameter):    
+    for item, properties in items.items():
+        if parameter == properties["icon"]:
+            add_to_inventory(inventory, item, properties)
+            add_stats_to_player(player, properties)
 
-    elif item_key in inventory:
-        inventory[item_key] += 1
-    else:
-        inventory[item_key] = 1
-
-def item_vs_player(inventory, item, player, items):
-    
-    item_to_delete = ''
-
-    for item_key in item:
-        if item[item_key]['position_x'] == player['position_x'] and item[item_key]['position_y'] == player['position_y'] and items[item_key]['board']:
-
-            add_to_inventory(inventory, item_key)
-            item_to_delete = item_key
-            item[item_key]['number'] -= 1
-            
-
-            if item_key == 'soword':
-                ui.print_message('\n' + ' +2 Life point! ')
-                player['atack'] += 2 
-            else:
-                ui.print_message('\n' + item_key + ' has been added to your inventory!')
-                
-
-    if item_to_delete == '':
-        pass
-
-    elif item[item_to_delete]['number'] == 0:
-        item[item_to_delete]['board'] = -1
+def add_stats_to_player(player, properties):
+    player["hp"] += properties.get("hp",0)
+    player["attack"] += properties.get("attack", 0)
+    player["defense"] += properties.get("defense", 0)

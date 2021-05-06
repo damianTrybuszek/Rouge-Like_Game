@@ -1,9 +1,12 @@
-def display_board(board, current_level):
+def display_board(board, current_level, player):
     print("The Best Rouge Game in the World!\n")
     print(f"Current level: {current_level}.\n")
+    print("These are your stats Prisoner:")
+    print_player_stats(player)
     for row in board:
         for cell in row:
             print(cell, end=' ')
+    
         print()
     print()
 
@@ -11,16 +14,18 @@ def print_message(message = ''):
     print(message)
 
 def print_table(inventory):
-    
+    print("{:<8} {:<15} {:<10}".format('Item','Attack','Defense\n'))
+    for item, properties in inventory.items():
+        attack = properties.get("attack", 0)
+        defense = properties.get("defense", 0)
+        print("{:<8} {:<15} {:<10}".format(item, attack, defense))
 
-    elements = sorted(inventory, key = inventory.get, reverse=True)
-    print('-' * 17)
-    print ("{:>5} {:<2}".format('item name |', 'count'))
-    print('-' * 17)
 
-    for r in elements:
-        results = (r, inventory[r])
-        print ("{:>12} {:>4}".format(r +' | ', inventory[r]), end = '\n')
-    print('-' * 17)
+# player = {"icon": "@", "hp":20, "attack": 4, "defense": 5, 'position_x': 5,'position_y': 3}
 
-    return " "
+def print_player_stats(player):
+    print("{:<8} {:<15} {:<10}".format('Health','Attack','Defense'))
+    health = player["hp"]
+    attack = player["attack"]
+    defense = player["defense"]
+    print("{:<8} {:<15} {:<10} \n".format(health, attack, defense))
