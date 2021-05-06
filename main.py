@@ -42,16 +42,17 @@ def main():
     board_level_2 = engine.create_board_level_2(BOARD_WIDTH, BOARD_HEIGHT)
     board_level_3 = engine.create_board_level_3(BOARD_WIDTH, BOARD_HEIGHT)
     board = board_level_1
-    player = create_player()
+    player = dictionaries.player["icon"]
     gameplay(board, player, board_level_1, board_level_2, board_level_3)
+    # enemy = dictionaries.enemy["monster"]
 
-def gameplay(board, player, board_level_1, board_level_2, board_level_3):
+def gameplay(board, player, board_level_1, board_level_2, board_level_3, ):
     height = PLAYER_START_Y
     width = PLAYER_START_X
     board[height][width] = player
     item = engine.put_item_on_board(board, dictionaries.items)
     board = item
-    engine.item_vs_player(dictionaries.inventory, dictionaries.items, dictionaries.player, dictionaries.items)
+    
     current_level = "Level 1"
     is_running = True
     
@@ -63,19 +64,23 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3):
             is_running = False
         if key == "i":
             ui.print_message('This is your inventory content: ')
-            ui.print_table(dictionaries.inventory)
+            ui.print_table(eq)
         else:
             pass
         parameter = engine.put_player_on_board(board, player, key)
+        engine.put_enemy_on_board(board)
+        eq = engine.item_vs_player( dictionaries.items, dictionaries.player, dictionaries.items)
+        if engine.player_meets_other(dictionaries.enemy, dictionaries.player, board) != False:
+            other = engine.player_meets_other(dictionaries.enemy, dictionaries.player, board)
+            if dictionaries.enemy[other]['monster_type'] == 'enemy':
+                engine.fight(dictionaries.player, dictionaries.enemy, other)
+           
+        
         if parameter:
             board, current_level = get_active_board(current_level, parameter, board_level_1, board_level_2, board_level_3)
-             
             height = PLAYER_START_Y
             width = PLAYER_START_X
             board[height][width] = player
-            
-            
-           
 
 if __name__ == '__main__':
     main()

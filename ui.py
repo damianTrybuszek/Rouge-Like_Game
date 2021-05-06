@@ -13,7 +13,7 @@ def print_message(message = ''):
 def print_table(inventory):
     
 
-    elements = sorted(inventory, key = inventory.get, reverse=True)
+    elements = sorted(inventory, key = inventory, reverse=True)
     print('-' * 17)
     print ("{:>5} {:<2}".format('item name |', 'count'))
     print('-' * 17)

@@ -11,7 +11,7 @@ items = {
         "atack": 0,
         "def": 3,
         'position_x': 6,
-        'position_y': 8,
+        'position_y': 8
     },
     'shield':{  
         "icon": "S",
@@ -23,6 +23,8 @@ items = {
 }
 enemy = {
     'monster':{
+        'monster_type': "enemy",
+        "name":"Monster",
         "icon": "M",
         "hp": 5,
         "atack": 2,
@@ -30,7 +32,9 @@ enemy = {
         'position_x': 20,
         'position_y': 25,
     },
-    'boss':{
+    'Boss':{
+        'monster_type': "enemy",
+        "name":"Boss",
         "icon": "B",
         "hp": 10,
         "atack": 8,
