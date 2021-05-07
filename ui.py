@@ -16,6 +16,7 @@ def print_message(message = ''):
     print(message)
 
 def print_table(inventory):
+    print(inventory)
     print("{:<8} {:<15} {:<10}".format('Item','Attack','Defense\n'))
     for item, properties in inventory.items():
         attack = properties.get("attack", 0)
@@ -45,7 +46,7 @@ def print_story():
     time.sleep(2)
     print("But, try to find the way for freedom. Try to find the valuable items and kill all the enemies.\n\n")
     time.sleep(2)
-    print("If you defeat the boss, you may be able to see the light of day.\n\n\n")
+    print("If you defeat the boss, you may be able to see the light of day.\n\n\n ")
     time.sleep(2)
     print("  Good luck!\n")
-    time.sleep(6)
+    time.sleep(10)

@@ -17,7 +17,7 @@ PATH_ICON = chr(9641)
 WALL_ICON = chr(9609)
 
 enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["boss"]["icon"], dictionaries.enemy["ghost"]["icon"]]
-item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
+item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"], dictionaries.items["key"]["icon"], dictionaries.items["food"]["icon"]]
 
 def create_player():
     return PLAYER_ICON
@@ -64,7 +64,7 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3, ):
             ui.print_table(inventory)
             input("Press enter to continue:\n")
         else: 
-            parameter = engine.put_player_on_board(board, player, key)
+            parameter = engine.put_player_on_board(board, player, key, inventory)
             engine.put_enemy_on_board(board, player)
             if parameter:
                 if parameter in item_list:

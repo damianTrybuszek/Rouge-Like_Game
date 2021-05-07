@@ -4,10 +4,10 @@ import ui
 import math
 import dictionaries
 
-item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
+item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"], dictionaries.items["key"]["icon"], dictionaries.items["food"]["icon"]]
 enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["ghost"]["icon"], dictionaries.enemy["boss"]["icon"]]
 enemy_list_without_boss = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["ghost"]["icon"]]
-
+item_list_without_key = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"], dictionaries.items["food"]["icon"]]
 
 def create_board_level_1(width, height):
     board = []
@@ -23,10 +23,13 @@ def create_board_level_1(width, height):
                 board[i][j]=main.GATE_ICON
             elif j == 0 or j == width -1:
                 board[i][j]=main.WALL_ICON
-            elif i == height - 4 and j == width -6:
-                board[i][j] = random.choice(item_list)
             elif i == 0 or i == height -1:
                 board[i][j]=main.WALL_ICON
+            elif i == height - 4 and j == width -6:
+                board[i][j] = random.choice(item_list_without_key)
+            elif i == height //2 and j == width //2:
+                board[i][j] = dictionaries.items["key"]["icon"]
+
 
     for i in range(height+2):
         for j in range(width-4):
@@ -34,14 +37,14 @@ def create_board_level_1(width, height):
                 board[i][j+30]=main.GATE_ICON
             elif i == 4 and j == 0:
                 board[i][j+30]=main.GATE_ICON
-            elif i == height - 2 and j == width - 9:
-                board[i][j+30]=random.choice(enemy_list_without_boss)
             elif i == height - 4 and j == width - 12:
                 board[i][j+30]=item_list[0]  
             elif j == 0 or j == width - 4 -1:
                 board[i][j+30]=main.WALL_ICON
             elif i == 0 or i == height +2 - 1:
                 board[i][j+30]=main.WALL_ICON
+            elif i == height - 2 and j == width - 9:
+                board[i][j+30]=random.choice(enemy_list_without_boss)
 
     for i in range(height-2):
         for j in range(width+2):
@@ -69,7 +72,7 @@ def create_board_level_1(width, height):
             elif i == height//3 and j == (width- 4)/4:
                 board[i+20][j+10]=random.choice(enemy_list_without_boss)
             elif i == height - 3 and j == width - 8:
-                board[i+20][j+10]=random.choice(item_list)  
+                board[i+20][j+10]=random.choice(item_list_without_key)  
 
     gate_coords = []
 
@@ -144,7 +147,9 @@ def create_board_level_2(width, height):
                 board[i][j]=main.WALL_ICON
             elif i == 0 or i == height -1:
                 board[i][j]=main.WALL_ICON
-
+            elif i == height - 6 and j == width -6:
+                board[i][j] = random.choice(enemy_list_without_boss)
+                
     for i in range(height+2):
         for j in range(width+4):
             if i == 5 and j == width+ 4 -1:
@@ -155,6 +160,10 @@ def create_board_level_2(width, height):
                 board[i][j+26]=main.WALL_ICON
             elif i == 0 or i == height +2 - 1:
                 board[i][j+26]=main.WALL_ICON
+            elif i == height - 3 and j == width - 8:
+                board[i][j+26]=random.choice(item_list_without_key)  
+            elif i == 5 and j == 7:
+                board[i][j+26]=random.choice(enemy_list_without_boss)  
 
     for i in range(height+5):
         for j in range(width+2):
@@ -166,6 +175,11 @@ def create_board_level_2(width, height):
                 board[i+12][j+6]=main.WALL_ICON
             elif i == 0 or i == height +5 - 1:
                 board[i+12][j+6]=main.WALL_ICON
+            elif i == height - 3 and j == width - 8:
+                board[i+12][j+6]=random.choice(item_list_without_key)
+            elif i == 3 and j == 4:
+                board[i+12][j+6]=random.choice(item_list_without_key)
+
 
     for i in range(height):
         for j in range(width-4):
@@ -177,6 +191,11 @@ def create_board_level_2(width, height):
                 board[i+18][j+30]=main.WALL_ICON
             elif i == 0 or i == height - 1:
                 board[i+18][j+30]=main.WALL_ICON
+            elif i == 5 and j == 7:
+                board[i+18][j+30]=random.choice(enemy_list_without_boss)  
+            elif i == 2 and j == 4:
+                board[i+18][j+30]=random.choice(enemy_list_without_boss) 
+            
 
     gate_coords = []
 
@@ -262,6 +281,10 @@ def create_board_level_3(width, height):
                 board[i][j]=main.WALL_ICON
             elif i == 0 or i == height + 2 - 1:
                 board[i][j]=main.WALL_ICON
+            elif i == 5 and j == 7:
+                board[i][j]=random.choice(item_list)
+            elif i == 8 and j == 3:
+                board[i][j]=random.choice(item_list)
 
     for i in range(height+4):
         for j in range(width-4):
@@ -273,6 +296,10 @@ def create_board_level_3(width, height):
                 board[i+2][j+30]=main.WALL_ICON
             elif i == 0 or i == height +4 - 1:
                 board[i+2][j+30]=main.WALL_ICON
+            elif i == 5 and j == 7:
+                board[i+2][j+30]=random.choice(enemy_list_without_boss)
+            elif i == 2 and j == 10:
+                board[i+2][j+30]=random.choice(item_list_without_key)
 
     for i in range(height):
         for j in range(width+2):
@@ -284,6 +311,11 @@ def create_board_level_3(width, height):
                 board[i+17][j+32]=main.WALL_ICON
             elif i == 0 or i == height - 1:
                 board[i+17][j+32]=main.WALL_ICON
+            elif i == 2 and j == 10:
+                board[i+17][j+32]=random.choice(item_list_without_key)
+            elif i == 7 and j == 3:
+                board[i+17][j+32]=random.choice(item_list_without_key)
+
 
     for i in range(height+2):
         for j in range(width+6):
@@ -293,6 +325,8 @@ def create_board_level_3(width, height):
                 board[i+18][j+2]=main.WALL_ICON
             elif i == 0 or i == height + 2 - 1:
                 board[i+18][j+2]=main.WALL_ICON
+            elif i == (height+2)//2 and j == (width+6)//2:
+                board[i+18][j+2] = enemy_list[2]
 
     gate_coords = []
 
@@ -350,7 +384,7 @@ def create_board_level_3(width, height):
     return board
 
 
-def put_player_on_board(board, player, move):
+def put_player_on_board(board, player, move, inventory):
     for i in range(len(board)):
         for j in range(len(board[i])):
             if board[i][j] == player["icon"]:
@@ -408,29 +442,29 @@ def put_player_on_board(board, player, move):
         width += 1
         board[height][width] = player["icon"]
 
-    if move.lower() == "w" and board[height-1][width] in [main.GATE_TO_UPPER_LEVEL]:
+    if move.lower() == "w" and board[height-1][width] in [main.GATE_TO_UPPER_LEVEL] and "key" in (list(inventory.keys())):
         board[height][width] = " "
         return "upper"
-    elif move.lower() == "a" and board[height][width-1] in [main.GATE_TO_UPPER_LEVEL]:
+    elif move.lower() == "a" and board[height][width-1] in [main.GATE_TO_UPPER_LEVEL] and "key" in (list(inventory.keys())):
         board[height][width] = " "
         return  "upper"
-    elif move.lower() == "s" and board[height+1][width] in [main.GATE_TO_UPPER_LEVEL]:
+    elif move.lower() == "s" and board[height+1][width] in [main.GATE_TO_UPPER_LEVEL] and "key" in (list(inventory.keys())):
         board[height][width] = " "
         return  "upper"
-    elif move.lower() == "d" and board[height][width+1] in [main.GATE_TO_UPPER_LEVEL]:
+    elif move.lower() == "d" and board[height][width+1] in [main.GATE_TO_UPPER_LEVEL] and "key" in (list(inventory.keys())):
         board[height][width] = " "
         return  "upper"
     
-    if move.lower() == "w" and board[height-1][width] in [main.GATE_TO_LOWER_LEVEL]:
+    if move.lower() == "w" and board[height-1][width] in [main.GATE_TO_LOWER_LEVEL] and "key" in (list(inventory.keys())):
         board[height][width] = " "
         return "lower"
-    elif move.lower() == "a" and board[height][width-1] in [main.GATE_TO_LOWER_LEVEL]:
+    elif move.lower() == "a" and board[height][width-1] in [main.GATE_TO_LOWER_LEVEL] and "key" in (list(inventory.keys())):
         board[height][width] = " "
         return "lower"
-    elif move.lower() == "s" and board[height+1][width] in [main.GATE_TO_LOWER_LEVEL]:
+    elif move.lower() == "s" and board[height+1][width] in [main.GATE_TO_LOWER_LEVEL] and "key" in (list(inventory.keys())):
         board[height][width] = " "
         return "lower"
-    elif move.lower() == "d" and board[height][width+1] in [main.GATE_TO_LOWER_LEVEL]:
+    elif move.lower() == "d" and board[height][width+1] in [main.GATE_TO_LOWER_LEVEL] and "key" in (list(inventory.keys())):
         board[height][width] = " "
         return "lower"
     
@@ -585,7 +619,6 @@ def put_enemy_on_board(board, player):
                 width += 1
                 board[height][width] = enemy
                 break
-
 
 # def put_item_on_board(board, items):
     

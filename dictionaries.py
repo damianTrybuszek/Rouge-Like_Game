@@ -19,7 +19,22 @@ items = {
         "defense": 3,
         'position_x': 7,
         'position_y': 8
-    }
+    },
+    'key':{  
+        "icon": "K",
+        "attack": 0,
+        "defense": 0,
+        'position_x': 7,
+        'position_y': 8
+    },
+    'food':{  
+        "icon": "F",
+        "attack": 0,
+        "defense": 0,
+        'position_x': 7,
+        'position_y': 8,
+        "hp":5
+}
 }
 enemy = {
     'monster':{
