@@ -1,3 +1,5 @@
+import time
+
 def display_board(board, current_level, player):
     print("The Best Rouge Game in the World!\n")
     print(f"Current level: {current_level}.\n")
@@ -29,3 +31,21 @@ def print_player_stats(player):
     attack = player["attack"]
     defense = player["defense"]
     print("{:<8} {:<15} {:<10} \n".format(health, attack, defense))
+
+def print_story():
+    print("\tHello Dear Player....\n")
+    time.sleep(2)
+
+    print("Welcome to a Rouge-Like game...\n")
+    time.sleep(2)
+    print("\t...where you take the role of a nameless prisoner, abandoned and forgotten by the whole world...\n")
+
+    time.sleep(2)
+    print("You will be tortured, stalked, beaten and robbed. \n")
+    time.sleep(2)
+    print("But, try to find the way for freedom. Try to find the valuable items and kill all the enemies.\n")
+    time.sleep(2)
+    print("If you defeat the boss, you may be able to see the light of day.\n")
+    time.sleep(2)
+    print("  Good luck!\n")
+    time.sleep(6)

@@ -16,11 +16,6 @@ GATE_TO_LOWER_LEVEL = "L"
 PATH_ICON = chr(9641)
 WALL_ICON = chr(9609)
 
-MONSTER_ICON = 'M'
-MONSTER_START_X = 7
-MONSTER_START_Y = 7
-MONSTER_HP = 3
-
 enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["boss"]["icon"], dictionaries.enemy["ghost"]["icon"]]
 item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
 
@@ -47,17 +42,16 @@ def main():
     board = board_level_1
     player = dictionaries.player
     gameplay(board, player, board_level_1, board_level_2, board_level_3)
-    # enemy = dictionaries.enemy["monster"]
 
 def gameplay(board, player, board_level_1, board_level_2, board_level_3, ):
     height = PLAYER_START_Y
     width = PLAYER_START_X
     board[height][width] = player["icon"]
-    # item = engine.put_item_on_board(board, dictionaries.items)
-    # board = item
     inventory = dictionaries.inventory
     current_level = "Level 1"
     is_running = True
+    util.clear_screen()
+    ui.print_story()
     
     while is_running:
         util.clear_screen()
