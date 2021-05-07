@@ -38,14 +38,14 @@ def print_story():
 
     print("Welcome to a Rouge-Like game...\n")
     time.sleep(2)
-    print("\t...where you take the role of a nameless prisoner, abandoned and forgotten by the whole world...\n")
+    print("\t...where you take the role of a nameless prisoner, abandoned and forgotten by the whole world...\n\n")
 
     time.sleep(2)
     print("You will be tortured, stalked, beaten and robbed. \n")
     time.sleep(2)
-    print("But, try to find the way for freedom. Try to find the valuable items and kill all the enemies.\n")
+    print("But, try to find the way for freedom. Try to find the valuable items and kill all the enemies.\n\n")
     time.sleep(2)
-    print("If you defeat the boss, you may be able to see the light of day.\n")
+    print("If you defeat the boss, you may be able to see the light of day.\n\n\n")
     time.sleep(2)
     print("  Good luck!\n")
     time.sleep(6)
