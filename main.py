@@ -53,8 +53,8 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3, ):
     height = PLAYER_START_Y
     width = PLAYER_START_X
     board[height][width] = player["icon"]
-    item = engine.put_item_on_board(board, dictionaries.items)
-    board = item
+    # item = engine.put_item_on_board(board, dictionaries.items)
+    # board = item
     inventory = dictionaries.inventory
     current_level = "Level 1"
     is_running = True
@@ -71,7 +71,6 @@ def gameplay(board, player, board_level_1, board_level_2, board_level_3, ):
             input("Press enter to continue:\n")
         else: 
             parameter = engine.put_player_on_board(board, player, key)
-            print(parameter)
             engine.put_enemy_on_board(board, player)
             if parameter:
                 if parameter in item_list:

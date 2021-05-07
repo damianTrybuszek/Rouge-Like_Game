@@ -4,6 +4,10 @@ import ui
 import math
 import dictionaries
 
+item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
+enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["ghost"]["icon"], dictionaries.enemy["boss"]["icon"]]
+enemy_list_without_boss = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["ghost"]["icon"]]
+
 
 def create_board_level_1(width, height):
     board = []
@@ -19,6 +23,8 @@ def create_board_level_1(width, height):
                 board[i][j]=main.GATE_ICON
             elif j == 0 or j == width -1:
                 board[i][j]=main.WALL_ICON
+            elif i == height - 4 and j == width - 3:
+                board[i][j] = random.choice(item_list)
             elif i == 0 or i == height -1:
                 board[i][j]=main.WALL_ICON
 
@@ -28,6 +34,10 @@ def create_board_level_1(width, height):
                 board[i][j+30]=main.GATE_ICON
             elif i == 4 and j == 0:
                 board[i][j+30]=main.GATE_ICON
+            elif i == height - 2 and j == width - 7:
+                board[i][j+30]=random.choice(enemy_list_without_boss)
+            elif i == height - 4 and j == width - 6:
+                board[i][j+30]=item_list[0]  
             elif j == 0 or j == width - 4 -1:
                 board[i][j+30]=main.WALL_ICON
             elif i == 0 or i == height +2 - 1:
@@ -43,8 +53,8 @@ def create_board_level_1(width, height):
                 board[i+17][j+34]=main.WALL_ICON
             elif i == 0 or i == height - 2 - 1:
                 board[i+17][j+34]=main.WALL_ICON
-            elif (i == 5 and j == 4) or (i == 4 and j == 5):
-                board[i+17][j+34] = dictionaries.enemy["monster"]["icon"]
+            elif (i == height - 6 and j == width - 6) or (i == height - 4 and j == width):
+                board[i+17][j+34] = random.choice(enemy_list_without_boss)
 
     for i in range(height):
         for j in range(width-4):
@@ -56,6 +66,10 @@ def create_board_level_1(width, height):
                 board[i+20][j+10]=main.WALL_ICON
             elif i == 0 or i == height - 1:
                 board[i+20][j+10]=main.WALL_ICON
+            elif i == height//3 and j == (width- 4)/4:
+                board[i+20][j+10]=random.choice(enemy_list_without_boss)
+            elif i == height - 3 and j == width - 8:
+                board[i+20][j+10]=random.choice(item_list)  
 
     gate_coords = []
 
@@ -351,9 +365,6 @@ def put_player_on_board(board, player, move):
             if board[i][j] == main.GATE_ICON:
                 gate_coords.append((i,j))
 
-    
-    item_list = [dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
-    
     if move.lower() == "w" and board[height-1][width] in item_list:
         board[height][width] = " "
         height -=1
@@ -526,8 +537,6 @@ def put_enemy_on_board(board, player):
 
     enemy_coords = []
 
-    enemy_list = [dictionaries.enemy["monster"]["icon"], dictionaries.enemy["boss"]["icon"], dictionaries.enemy["ghost"]["icon"]]
-
     for i in range(len(board)):
         for j in range(len(board[i])):
             if board[i][j] in enemy_list:
@@ -541,7 +550,6 @@ def put_enemy_on_board(board, player):
 
     collision_list = [main.WALL_ICON, main.GATE_ICON, main.GATE_TO_UPPER_LEVEL, main.GATE_TO_LOWER_LEVEL, player["icon"], dictionaries.items["shield"]["icon"], dictionaries.items["sword"]["icon"], dictionaries.items["armor"]["icon"]]
 
-
     for element in enemy_coords:
         height = element[0]
         width = element[1]
@@ -553,35 +561,41 @@ def put_enemy_on_board(board, player):
         else:
             enemy = dictionaries.enemy["boss"]["icon"]
         
-        move = random.choice(["w","a","s","d"])
+        while True:
+        
+            move = random.choice(["w","a","s","d"])
 
-        if move.lower() == "w" and board[height-1][width] not in collision_list and board[height-1][width] not in enemy_list:
-            board[height][width] = " "
-            height -=1
-            board[height][width] = enemy
-        elif move.lower() == "a" and board[height][width-1] not in collision_list and board[height][width-1] not in enemy_list:
-            board[height][width] = " "
-            width -= 1
-            board[height][width] = enemy
-        elif move.lower() == "s" and board[height+1][width] not in collision_list and board[height+1][width] not in enemy_list:
-            board[height][width] = " "
-            height += 1
-            board[height][width] = enemy
-        elif move.lower() == "d" and board[height][width+1] not in collision_list and  board[height][width+1] not in enemy_list:
-            board[height][width] = " "
-            width += 1
-            board[height][width] = enemy
+            if move.lower() == "w" and board[height-1][width] not in collision_list and board[height-1][width] not in enemy_list:
+                board[height][width] = " "
+                height -=1
+                board[height][width] = enemy
+                break
+            elif move.lower() == "a" and board[height][width-1] not in collision_list and board[height][width-1] not in enemy_list:
+                board[height][width] = " "
+                width -= 1
+                board[height][width] = enemy
+                break
+            elif move.lower() == "s" and board[height+1][width] not in collision_list and board[height+1][width] not in enemy_list:
+                board[height][width] = " "
+                height += 1
+                board[height][width] = enemy
+                break
+            elif move.lower() == "d" and board[height][width+1] not in collision_list and  board[height][width+1] not in enemy_list:
+                board[height][width] = " "
+                width += 1
+                board[height][width] = enemy
+                break
 
 
-def put_item_on_board(board, items):
+# def put_item_on_board(board, items):
     
-    for item_key in items:
-        if items[item_key]:
-            board[items[item_key]['position_y']][items[item_key]['position_x']] = items[item_key]['icon']
-        else:
-            pass
+#     for item_key in items:
+#         if items[item_key]:
+#             board[items[item_key]['position_y']][items[item_key]['position_x']] = items[item_key]['icon']
+#         else:
+#             pass
 
-    return board
+#     return board
 
 def add_to_inventory(inventory, item, properties):
     """Add to the inventory dictionary a list of items"""
