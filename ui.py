@@ -16,12 +16,12 @@ def print_message(message = ''):
     print(message)
 
 def print_table(inventory):
-    print(inventory)
-    print("{:<8} {:<15} {:<10}".format('Item','Attack','Defense\n'))
+    print("{:<8} {:<15} {:<10} {:<12}".format('Item','Health', 'Attack','Defense\n'))
     for item, properties in inventory.items():
         attack = properties.get("attack", 0)
         defense = properties.get("defense", 0)
-        print("{:<8} {:<15} {:<10}".format(item, attack, defense))
+        health = properties.get("hp", 0)
+        print("{:<8} {:<15} {:<10} {:<12}".format(item, health, attack, defense))
 
 
 # player = {"icon": "@", "hp":20, "attack": 4, "defense": 5, 'position_x': 5,'position_y': 3}
